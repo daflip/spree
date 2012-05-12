@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.requirements << 'none'
 
   s.add_dependency 'acts_as_list', '= 0.1.4'
+  s.add_dependency 'meta_search', '= 1.1.3'
   s.add_dependency 'nested_set', '= 1.6.8'
 
 #s.add_dependency 'jquery-rails', '>= 1.0.18', '<= 1.0.19'
