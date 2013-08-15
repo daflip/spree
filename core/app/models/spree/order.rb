@@ -81,7 +81,8 @@ module Spree
       before_transition :to => 'complete' do |order|
         begin
           order.process_payments!
-        rescue Core::GatewayError
+        rescue Core::GatewayError => e
+          order.errors.add(:payment, e.message)
           !!Spree::Config[:allow_checkout_on_gateway_error]
         end
       end
