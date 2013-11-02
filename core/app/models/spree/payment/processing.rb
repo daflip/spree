@@ -127,6 +127,7 @@ module Spree
     private
 
     def gateway_error(error)
+      self.gateway_errors = error if respond_to?(:gateway_errors=)
       if error.is_a? ActiveMerchant::Billing::Response
         text = error.params['message'] || error.params['response_reason_text'] || error.message
       elsif error.is_a? ActiveMerchant::ConnectionError
@@ -135,7 +136,7 @@ module Spree
         text = error.to_s
       end
       logger.error(I18n.t(:gateway_error))
-      logger.error("  #{error.to_yaml}")
+      logger.error("  #{error.to_yaml} TEXT IS: #{text} AND #{error.inspect}")
       raise Core::GatewayError.new(text)
     end
 

@@ -14,6 +14,7 @@ module Spree
     after_save :update_order
 
     attr_accessor :source_attributes
+    attr_accessor :gateway_errors
     after_initialize :build_source
 
     attr_accessible :amount, :payment_method_id, :source_attributes
