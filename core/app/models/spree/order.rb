@@ -59,8 +59,7 @@ module Spree
         transition :from => 'confirm',  :to => 'complete'
 
         # note: some payment methods will not support a confirm step
-        transition :from => 'payment',  :to => 'confirm',
-                                        :if => Proc.new { |order| order.payment_method && order.payment_method.payment_profiles_supported? }
+        transition :from => 'payment',  :to => 'confirm', :if => Proc.new { |order| order.confirmation_required? }
 
         transition :from => 'payment', :to => 'complete'
       end
@@ -154,6 +153,11 @@ module Spree
     # in your own application if you require additional steps before allowing a checkout.
     def checkout_allowed?
       line_items.count > 0
+    end
+
+    # patched in by jbw (backport support from later version of spree)
+    def confirmation_required?
+      false
     end
 
     # Is this a free order in which case the payment step should be skipped
