@@ -1,3 +1,4 @@
+I18n.enforce_available_locales = true
 class Spree::Preference < ActiveRecord::Base
   attr_accessible :name, :key, :value_type, :value
 
